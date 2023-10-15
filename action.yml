@@ -1,6 +1,6 @@
-name: 'Laravel Pint And Annotate'
-description: 'Installs and runs Laravel Pint with specified parameters.'
-author: 'Sergey Pronin <sergotail@mail.ru>'
+name: 'Laravel Pint Action'
+description: 'Runs Laravel Pint with specified parameters.'
+author: 'sergotail'
 
 inputs:
   onlyFiles:
@@ -61,5 +61,5 @@ runs:
           INPUT_USE_COMPOSER: ${{ inputs.use-composer }}
 
 branding:
-  icon: "eye"  
-  color: "gray-dark"
+  icon: "code"  
+  color: "red"
