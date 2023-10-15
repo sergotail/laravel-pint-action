@@ -48,17 +48,17 @@ runs:
   steps:
     - run: ${{ github.action_path }}/entrypoint.sh
         shell: bash
-      env:
-          INPUT_ONLY_FILES: ${{ inputs.only-files }}
-          INPUT_TEST_MODE: ${{ inputs.test-mode }}
-          INPUT_VERBOSE_MODE: ${{ inputs.verbose-mode}}
-          INPUT_CONFIG_PATH: ${{ inputs.config-path }}
-          INPUT_PRESET: ${{ inputs.preset }}
-          INPUT_ONLY_DIRTY: ${{ inputs.only-dirty }}
-          INPUT_ANNOTATE: ${{ inputs.annotate }}
-          INPUT_PINT_VERSION: ${{ inputs.pint-version }}
-          INPUT_ANNOTATE_VERSION: ${{ inputs.annotate-version }}
-          INPUT_USE_COMPOSER: ${{ inputs.use-composer }}
+        env:
+            INPUT_ONLY_FILES: ${{ inputs.only-files }}
+            INPUT_TEST_MODE: ${{ inputs.test-mode }}
+            INPUT_VERBOSE_MODE: ${{ inputs.verbose-mode}}
+            INPUT_CONFIG_PATH: ${{ inputs.config-path }}
+            INPUT_PRESET: ${{ inputs.preset }}
+            INPUT_ONLY_DIRTY: ${{ inputs.only-dirty }}
+            INPUT_ANNOTATE: ${{ inputs.annotate }}
+            INPUT_PINT_VERSION: ${{ inputs.pint-version }}
+            INPUT_ANNOTATE_VERSION: ${{ inputs.annotate-version }}
+            INPUT_USE_COMPOSER: ${{ inputs.use-composer }}
 
 branding:
   icon: "code"  
