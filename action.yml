@@ -1,4 +1,4 @@
-name: 'Laravel Pint Action'
+name: 'Laravel Pint And Annotate'
 description: 'Installs and runs Laravel Pint with specified parameters.'
 author: 'Sergey Pronin <sergotail@mail.ru>'
 
