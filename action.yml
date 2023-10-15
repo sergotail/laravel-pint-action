@@ -1,0 +1,64 @@
+name: 'Laravel Pint Action'
+description: 'Installs and runs Laravel Pint with specified parameters.'
+author: 'Sergey Pronin <sergotail@mail.ru>'
+
+inputs:
+  onlyFiles:
+      description: "List of files to run pint on. List must be а space-separated filenames in project."
+      required: false
+
+  testMode:
+    description: "Run Pint on test mode."
+    required: false
+
+  verboseMode:
+    description: "Run Pint on verbose mode."
+    required: false
+
+  configPath:
+    description: "The custom pint json config path. Config file must be present to use this flag."
+    required: false
+
+  preset:
+    description: "Pint preset. Ignored when configPath option is used."
+    required: false
+
+  onlyDirty:
+    description: "Only format changed files. Ignored when onlyFiles option is used."
+    required: false
+
+  annotate:
+    description: "Use staabm/annotate-pull-request-from-checkstyle package to annotate pull request from checkstyle. Ignored if Pint does not running on test mode."
+    required: false
+
+  pintVersion:
+    description: "laravel/pint package specific version to install."
+    required: false
+
+  annotateVersion:
+    description: "staabm/annotate-pull-request-from-checkstyle package specific version to install."
+    required: false
+
+  useComposer:
+    description: "Try to acquire laravel/pint and staabm/annotate-pull-request-from-checkstyle packages version from lock file, if it exists. If a package version is specified, it is taken first."
+    required: false
+  
+runs:
+  using: "composite"
+  - run: ${{ github.action_path }}/entrypoint.sh
+      shell: bash
+    env:
+        INPUT_ONLY_FILES: ${{ inputs.only-files }}
+        INPUT_TEST_MODE: ${{ inputs.test-mode }}
+        INPUT_VERBOSE_MODE: ${{ inputs.verbose-mode}}
+        INPUT_CONFIG_PATH: ${{ inputs.config-path }}
+        INPUT_PRESET: ${{ inputs.preset }}
+        INPUT_ONLY_DIRTY: ${{ inputs.only-dirty }}
+        INPUT_ANNOTATE: ${{ inputs.annotate }}
+        INPUT_PINT_VERSION: ${{ inputs.pint-version }}
+        INPUT_ANNOTATE_VERSION: ${{ inputs.annotate-version }}
+        INPUT_USE_COMPOSER: ${{ inputs.use-composer }}
+
+branding:
+  icon: "eye"  
+  color: "gray-dark"
