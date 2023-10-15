@@ -42,24 +42,27 @@ inputs:
   useComposer:
     description: "Try to acquire laravel/pint and staabm/annotate-pull-request-from-checkstyle packages version from lock file, if it exists. If a package version is specified, it is taken first."
     required: false
-  
+
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/entrypoint.sh
-        shell: bash
-        env:
-            INPUT_ONLY_FILES: ${{ inputs.only-files }}
-            INPUT_TEST_MODE: ${{ inputs.test-mode }}
-            INPUT_VERBOSE_MODE: ${{ inputs.verbose-mode}}
-            INPUT_CONFIG_PATH: ${{ inputs.config-path }}
-            INPUT_PRESET: ${{ inputs.preset }}
-            INPUT_ONLY_DIRTY: ${{ inputs.only-dirty }}
-            INPUT_ANNOTATE: ${{ inputs.annotate }}
-            INPUT_PINT_VERSION: ${{ inputs.pint-version }}
-            INPUT_ANNOTATE_VERSION: ${{ inputs.annotate-version }}
-            INPUT_USE_COMPOSER: ${{ inputs.use-composer }}
+      shell: bash
+      env:
+        COMPOSER_PROCESS_TIMEOUT: 0
+        COMPOSER_NO_INTERACTION: 1
+        COMPOSER_NO_AUDIT: 1
+        INPUT_ONLY_FILES: ${{ inputs.onlyFiles }}
+        INPUT_TEST_MODE: ${{ inputs.testMode }}
+        INPUT_VERBOSE_MODE: ${{ inputs.verboseMode}}
+        INPUT_CONFIG_PATH: ${{ inputs.configPath }}
+        INPUT_PRESET: ${{ inputs.preset }}
+        INPUT_ONLY_DIRTY: ${{ inputs.onlyDirty }}
+        INPUT_ANNOTATE: ${{ inputs.annotate }}
+        INPUT_PINT_VERSION: ${{ inputs.pintVersion }}
+        INPUT_ANNOTATE_VERSION: ${{ inputs.annotateVersion }}
+        INPUT_USE_COMPOSER: ${{ inputs.useComposer }}
 
 branding:
-  icon: "code"  
+  icon: "code"
   color: "red"

@@ -7,7 +7,7 @@ cs2pr_install_command=("composer global require staabm/annotate-pull-request-fro
 if [[ "${INPUT_USE_COMPOSER}" == true ]]; then
   COMPOSER_PINT_VERSION=$(composer show --locked | grep 'laravel/pint' | awk '{print $2}')
   COMPOSER_CS2PR_VERSION=$(composer show --locked | grep 'staabm/annotate-pull-request-from-checkstyle' | awk '{print $2}')
-  
+
   INPUT_PINT_VERSION=${INPUT_PINT_VERSION:-${COMPOSER_PINT_VERSION}}
   INPUT_ANNOTATE_VERSION=${INPUT_ANNOTATE_VERSION:-${COMPOSER_CS2PR_VERSION}}
 fi
@@ -55,19 +55,21 @@ elif [[ "${INPUT_PRESET}" ]]; then
 fi
 
 if [[ "${INPUT_ANNOTATE}" == true ]]; then
-  pint_command+=" --format=checkstyle | ${BIN_PATH}/cs2pr"
+  pint_command+=" --format=checkstyle"
 fi
 
 echo "Running Command: " "${pint_install_command[@]}"
-
 ${pint_install_command[@]}
 
 if [[ "${INPUT_ANNOTATE}" == true ]]; then
-  echo "Running Command: " "${cs2pr_install_command[@]}"
+    echo "Running Command: " "${cs2pr_install_command[@]}"
+    ${cs2pr_install_command[@]}
 
-  ${cs2pr_install_command[@]}
+    cs2pr_command=("${BIN_PATH}/cs2pr")
+
+    echo "Running Command: " "${pint_command[@]} | ${cs2pr_command[@]}"
+    ${pint_command[@]} | ${cs2pr_command[@]}
+else
+    echo "Running Command: " "${pint_command[@]}"
+    ${pint_command[@]}
 fi
-
-echo "Running Command: " "${pint_command[@]}"
-
-${pint_command[@]}
