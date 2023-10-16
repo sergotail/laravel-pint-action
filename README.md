@@ -1,6 +1,6 @@
 # GitHub Action for Laravel Pint  
 
-GitHub Action composite implementation of the [Laravel Pint](https://github.com/laravel/pint) Package. Also, when Pint is run on test mode, pull request annotation based on a Checkstyle XML-report is available.
+GitHub Action for the [Laravel Pint](https://github.com/laravel/pint) Package. Also, annotation based on a Checkstyle XML-report is available.
 
 ## Usage
 
@@ -25,18 +25,6 @@ on:
 jobs:
   phplint:
     runs-on: ubuntu-latest
-    container:
-      image: php:${{ matrix.php-tags }}
-    defaults:
-      run:
-        shell: bash
-    timeout-minutes: 2
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php-tags: [8.1-fpm-alpine3.18]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,7 +34,7 @@ jobs:
         uses: tj-actions/changed-files@v39
 
       - name: Run Laravel Pint
-        uses: sergotail/laravel-pint-action@v1
+        uses: sergotail/laravel-pint-action@v2
         with:
           onlyFiles: ${{ steps.changed-files.outputs.all_changed_files }}
           testMode: true
@@ -64,6 +52,6 @@ jobs:
 
 Even when `useComposer` is endabled, `pintVersion` and `annotateVersion` are checked first, and only then the lock file is checked.
 
-`annotate` option uses [annotate-pull-request-from-checkstyle](<https://github.com/staabm/annotate-pull-request-from-checkstyle>) package to annotate pull request based on a Checkstyle XML-report.
+`annotate` option uses [annotate-pull-request-from-checkstyle](<https://github.com/staabm/annotate-pull-request-from-checkstyle>) package to annotate pull request based on a Checkstyle XML-report. When annotation is enabled, pint is running in test mode.
 
 This action **DOESN'T** commit changes automatically. If you want to achieve such behaviour you have to use it in combination with another action like [git-auto-commit Action](https://github.com/stefanzweifel/git-auto-commit-action) or [Create Pull Request Action](https://github.com/marketplace/actions/create-pull-request). Note that in this case you have to disable `testMode`.

@@ -4,31 +4,31 @@ author: 'sergotail'
 
 inputs:
   onlyFiles:
-      description: "List of files to run pint on. List must be а space-separated filenames in project."
-      required: false
+    description: "List of files to run pint on. List must be а space-separated filenames in project."
+    required: false
 
   testMode:
-    description: "Run Pint on test mode."
+    description: "Run Pint with --test option."
     required: false
 
   verboseMode:
-    description: "Run Pint on verbose mode."
+    description: "Run Pint with -v option."
     required: false
 
   configPath:
-    description: "The custom pint json config path. Config file must be present to use this flag."
+    description: "The custom pint json config path (--config option). Config file must be present to use this flag."
     required: false
 
   preset:
-    description: "Pint preset. Ignored when configPath option is used."
+    description: "Pint preset (--preset option). Ignored when configPath option is used."
     required: false
 
   onlyDirty:
-    description: "Only format changed files. Ignored when onlyFiles option is used."
+    description: "Only format changed files (--dirty option). Ignored when onlyFiles option is used."
     required: false
 
   annotate:
-    description: "Use staabm/annotate-pull-request-from-checkstyle package to annotate pull request from checkstyle. Ignored if Pint does not running on test mode."
+    description: "Use staabm/annotate-pull-request-from-checkstyle package to annotate pull request from checkstyle. Forces Pint to run with --test option."
     required: false
 
   pintVersion:
@@ -40,28 +40,12 @@ inputs:
     required: false
 
   useComposer:
-    description: "Try to acquire laravel/pint and staabm/annotate-pull-request-from-checkstyle packages version from lock file, if it exists. If a package version is specified, it is taken first."
+    description: "Try to acquire laravel/pint and staabm/annotate-pull-request-from-checkstyle packages versions from lock file, if it exists. If a package version is specified, it is taken first."
     required: false
 
 runs:
-  using: "composite"
-  steps:
-    - run: ${{ github.action_path }}/entrypoint.sh
-      shell: bash
-      env:
-        COMPOSER_PROCESS_TIMEOUT: 0
-        COMPOSER_NO_INTERACTION: 1
-        COMPOSER_NO_AUDIT: 1
-        INPUT_ONLY_FILES: ${{ inputs.onlyFiles }}
-        INPUT_TEST_MODE: ${{ inputs.testMode }}
-        INPUT_VERBOSE_MODE: ${{ inputs.verboseMode}}
-        INPUT_CONFIG_PATH: ${{ inputs.configPath }}
-        INPUT_PRESET: ${{ inputs.preset }}
-        INPUT_ONLY_DIRTY: ${{ inputs.onlyDirty }}
-        INPUT_ANNOTATE: ${{ inputs.annotate }}
-        INPUT_PINT_VERSION: ${{ inputs.pintVersion }}
-        INPUT_ANNOTATE_VERSION: ${{ inputs.annotateVersion }}
-        INPUT_USE_COMPOSER: ${{ inputs.useComposer }}
+  using: "docker"
+  image: "Dockerfile"
 
 branding:
   icon: "code"
