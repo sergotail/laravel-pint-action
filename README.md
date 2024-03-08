@@ -34,7 +34,7 @@ jobs:
         uses: tj-actions/changed-files@v39
 
       - name: Run Laravel Pint
-        uses: sergotail/laravel-pint-action@v2
+        uses: sergotail/laravel-pint-action@v2.0.0
         with:
           onlyFiles: ${{ steps.changed-files.outputs.all_changed_files }}
           testMode: true
